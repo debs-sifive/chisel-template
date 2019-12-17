@@ -3,6 +3,12 @@
 package gcd
 
 import chisel3._
+import chisel3.aop._
+import chisel3.aop.injecting.InjectingAspect
+import chisel3.stage.ChiselGeneratorAnnotation
+import firrtl.options.TargetDirAnnotation
+
+import gcd.GCDAspects.inlineLogger
 
 /**
   * This provides an alternate way to run tests, by executing then as a main
@@ -24,9 +30,12 @@ import chisel3._
   * }}}
   */
 object GCDMain extends App {
-  iotesters.Driver.execute(args, () => new GCD) {
-    c => new GCDUnitTester(c)
-  }
+  // elaboration
+  new chisel3.stage.ChiselStage().execute(args, Seq(
+    ChiselGeneratorAnnotation(() => new GCD()),
+    TargetDirAnnotation("test_run_dir"),
+    inlineLogger
+  ))
 }
 
 /**

@@ -31,7 +31,7 @@ class GCDUnitTester(c: GCD) extends PeekPokeTester(c) {
     (x, depth)
   }
 
-  private val gcd = c
+  val gcd = c
 
   for(i <- 1 to 40 by 3) {
     for (j <- 1 to 40 by 7) {
