@@ -1,3 +1,12 @@
+### Running the AOP Example
+Make sure some version of Verilator is available.
+
+```
+sbt 'test:runMain gcd.GCDMain'
+```
+
+In `test_run_dir`, `GCD.v` should get generated. A logging statement should be injected into this file.
+
 Chisel Project Template
 =======================
 
